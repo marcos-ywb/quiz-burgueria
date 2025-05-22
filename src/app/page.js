@@ -13,15 +13,19 @@ import questions from "@/data/questions";
 
 export default function Home() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [score, setScore] = useState(0);
 
   function handleAnswered(result) {
+    if (result === true) {
+      setScore((prevScore) => prevScore + 1);
+    }
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
     } else {
-      alert("Fim do quiz!");
+      alert(`Fim do quiz! \nPontuação: ${score}`);
       setTimeout(() => {
         window.location.reload();
-      }, 1000);
+      }, 500);
     }
   }
 
@@ -30,11 +34,12 @@ export default function Home() {
   return (
     <main className={style.main_container}>
       <Card
-        counter={currentQuestionIndex + 1}
         question={currentQuestion.question}
         answers={currentQuestion.answers}
         correct={currentQuestion.correct}
         onAnswered={handleAnswered}
+        currentQuestionIndex={currentQuestionIndex}
+        totalQuestions={questions.length}
       />
     </main>
   );

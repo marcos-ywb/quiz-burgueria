@@ -4,7 +4,10 @@ import { useState } from "react";
 /*STYLES*/
 import style from "./Card.module.css";
 
-function Card({ counter, question, answers, correct, onAnswered }) {
+/*COMPONENTES*/
+import ProgressBar from "@/components/ProgressBar";
+
+function Card({ question, answers, correct, onAnswered, currentQuestionIndex, totalQuestions }) {
     const [selected, setSelected] = useState(null);
     const [isCorrect, setIsCorrect] = useState(null);
 
@@ -20,41 +23,61 @@ function Card({ counter, question, answers, correct, onAnswered }) {
         }, 2000);
     }
 
+    const groupedAnswers = [];
+    for (let i = 0; i < answers.length; i += 2) {
+        groupedAnswers.push(answers.slice(i, i + 2));
+    }
+
     return (
         <div className={style.card_container}>
             <div className={style.card_content}>
+
+                <ProgressBar
+                    currentQuestionIndex={currentQuestionIndex}
+                    totalQuestions={totalQuestions}
+                />
+
                 <div className={style.card_question}>
-                    <span>#{counter}</span>
                     <h2>{question}</h2>
                 </div>
 
                 <div className={style.card_answers}>
                     <div className={style.answer_field}>
-                        {answers.map((answer, index) => (
-                            <div key={index} className={style.button_field}>
-                                <button
-                                    onClick={() => handleAnswerClick(index)}
-                                    className={
-                                        selected === index
-                                            ? isCorrect
-                                                ? style.correct
-                                                : style.incorrect
-                                            : ""
-                                    }
-                                    disabled={selected !== null} // impede múltiplos cliques
-                                >
-                                    {answer}
-                                </button>
+                        {groupedAnswers.map((group, rowIndex) => (
+                            <div key={rowIndex} className={style.button_row}>
+                                {group.map((answer, index) => {
+                                    const absoluteIndex = rowIndex * 2 + index;
+                                    return (
+                                        <div key={absoluteIndex} className={style.button_field}>
+                                            <button
+                                                onClick={() => handleAnswerClick(absoluteIndex)}
+                                                className={
+                                                    selected !== null // só aplica feedback depois de clicar
+                                                        ? absoluteIndex === correct // resposta correta
+                                                            ? style.correct
+                                                            : selected === absoluteIndex // resposta clicada errada
+                                                                ? style.incorrect
+                                                                : ""
+                                                        : ""
+                                                }
+
+                                                disabled={selected !== null}
+                                            >
+                                                {answer}
+                                            </button>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         ))}
+
                     </div>
                 </div>
 
-                {selected !== null && (
-                    <div className={style.feedback}>
-                        {isCorrect ? "✅ Resposta correta!" : "❌ Resposta incorreta."}
-                    </div>
-                )}
+
+                {/* */}
+
+
             </div>
         </div>
     );

@@ -1,0 +1,29 @@
+.card_progress {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 24px;
+    background-color: #3F3A56;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress_bar {
+    height: 100%;
+    background-color: #7C3AED;
+    transition: width 0.4s ease;
+}
+
+.card_progress_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card_progress_info {
+    font-size: 0.875rem;
+    color: #ccc;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+}
