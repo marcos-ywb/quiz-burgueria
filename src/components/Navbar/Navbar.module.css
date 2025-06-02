@@ -1,0 +1,47 @@
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #1E1B2E;
+    color: #fff;
+    padding: 1rem;
+}
+
+.navbar_brand {
+    display: flex;
+    gap: 1.6rem;
+    align-items: center;
+}
+
+.navbar_content ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.link.active {
+    color: #7C3AED;
+}
+
+.navbar_content ul li {
+    list-style: none;
+    font-weight: bold;
+}
+
+.navbar_content ul li:hover a {
+    color: #7C3AED;
+}
+
+.navbar_title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.navbar_icon {
+    transform: scale(2.5);
+}

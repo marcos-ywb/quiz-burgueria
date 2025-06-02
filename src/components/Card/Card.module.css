@@ -9,13 +9,13 @@
     border-radius: 12px;
     color: #E0E0F0;
     box-shadow: 10px 10px 32px -10px rgba(0, 0, 0, 0.75);
-    min-width: 300px;
+    min-width: 500px;
 }
 
 .card_question {
     text-align: center;
     width: 100%;
-    max-width: 300px;
+    max-width: 400px;
     margin: 0 auto;
 }
 

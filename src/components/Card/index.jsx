@@ -52,10 +52,10 @@ function Card({ question, answers, correct, onAnswered, currentQuestionIndex, to
                                             <button
                                                 onClick={() => handleAnswerClick(absoluteIndex)}
                                                 className={
-                                                    selected !== null // só aplica feedback depois de clicar
-                                                        ? absoluteIndex === correct // resposta correta
+                                                    selected !== null
+                                                        ? absoluteIndex === correct
                                                             ? style.correct
-                                                            : selected === absoluteIndex // resposta clicada errada
+                                                            : selected === absoluteIndex
                                                                 ? style.incorrect
                                                                 : ""
                                                         : ""
