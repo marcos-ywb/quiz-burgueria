@@ -3,7 +3,7 @@ import style from "./Navbar.module.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { GiHamburger } from "react-icons/gi";
+import Logo from "@/app/assets/logo.svg";
 
 function Navbar() {
     const pathname = usePathname();
@@ -11,8 +11,8 @@ function Navbar() {
     return (
         <nav className={style.navbar}>
             <div className={style.navbar_brand}>
-                <GiHamburger className={style.navbar_icon} />
-                <span className={style.navbar_title}>RankBurguer</span>
+                <Logo className={style.navbar_icon} />
+                <span className={style.navbar_title}>QuizBurguer</span>
             </div>
 
             <div className={style.navbar_content}>
@@ -32,11 +32,13 @@ function Navbar() {
                             Ranking
                         </Link>
                     </li>
-                    <li>
-                        <Link href="/" className={style.link}>
-                            Account
-                        </Link>
-                    </li>
+                    {/*
+                        <li>
+                            <Link href="/" className={style.link}>
+                                Account
+                            </Link>
+                        </li>
+                    */}
                 </ul>
             </div>
         </nav >

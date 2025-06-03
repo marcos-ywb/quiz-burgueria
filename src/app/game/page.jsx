@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 /* STYLES */
 import style from "./game.module.css";
@@ -11,22 +12,43 @@ import Card from "@/components/Card";
 import questions from "@/data/questions";
 
 function game() {
+    const router = useRouter();
+    const [isCheckingUser, setIsCheckingUser] = useState(true);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [score, setScore] = useState(0);
 
-    function handleAnswered(result) {
-        if (result === true) {
-            setScore((prevScore) => prevScore + 1);
+
+    useEffect(() => {
+        const user = localStorage.getItem("quiz_user");
+
+        if (!user) {
+            localStorage.setItem("needs_login", "true");
+            router.push("/");
+        } else {
+            setIsCheckingUser(false);
         }
+    }, [router])
+
+    if (isCheckingUser) return null;
+
+    function handleAnswered(result) {
+        let updatedScore = score;
+
+        if (result === true) {
+            updatedScore = score + 1;
+            setScore(updatedScore);
+        }
+
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex((prev) => prev + 1);
         } else {
-            alert(`Fim do quiz! \nPontuação: ${score}`);
+            alert(`Fim do quiz! \nPontuação: ${updatedScore}`);
             setTimeout(() => {
                 window.location.reload();
             }, 500);
         }
     }
+
 
     const currentQuestion = questions[currentQuestionIndex];
 
