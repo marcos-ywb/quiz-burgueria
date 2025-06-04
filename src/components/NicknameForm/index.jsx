@@ -7,13 +7,39 @@ import style from "./NicknameForm.module.css";
 
 export default function NicknameForm({ onComplete }) {
     const [nickname, setNickname] = useState("");
+    const [errorNickname, setErrorNickname] = useState("");
+
+    const checkNickname = (nickname) => {
+        const regex = /^[A-Za-zÀ-ÿ\s]+$/;
+        return regex.test(nickname);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        let valid = true;
+
+        if (!nickname.trim()) {
+            setErrorNickname("Campo obrigatório!");
+            valid = false;
+        } else if (!checkNickname(nickname.trim())) {
+            setErrorNickname("O nome deve conter apenas letras e espaços!")
+            valid = false;
+        } else if (nickname.trim().length < 3) {
+            setErrorNickname("O nome deve conter pelo menos 3 letras!")
+            valid = false;
+        } else {
+            setErrorNickname("");
+        }
+        setTimeout(() => {
+            setErrorNickname("");
+        }, 3000);
+
+        if (!valid) return;
+
         const userData = {
             id: uuidv4(),
-            nickname,
+            nickname: nickname.trim(),
         };
 
         console.log(userData);
@@ -34,11 +60,16 @@ export default function NicknameForm({ onComplete }) {
                         <label htmlFor="">Nome</label>
                         <span>(*)</span>
                     </div>
+                    {
+                        <p className={`${style.erro} ${!errorNickname ? style.hidden : ""}`}>
+                            {errorNickname || " "}
+                        </p>
+
+                    }
                 </div>
                 <input
                     type="text"
                     placeholder="Digite seu nome aqui..."
-                    required
                     value={nickname}
                     onChange={(e) => setNickname(e.target.value)}
                     className={style.input}

@@ -11,16 +11,40 @@ import style from "./page.module.css";
 
 export default function Home() {
   const [showForm, setShowForm] = useState(false);
+  const [nickname, setNickname] = useState("");
 
   useEffect(() => {
     const user = localStorage.getItem("quiz_user");
+
     if (!user) {
       setShowForm(true);
+    } else {
+      try {
+        const parsedUser = JSON.parse(user);
+        setNickname(parsedUser.nickname);
+
+      } catch (err) {
+        console.error("Erro ao fazer parse do usuário:", error);
+        setShowForm(true);
+      }
     }
+
     console.log(user);
   }, []);
 
   const handleComplete = () => {
+    const updatedUser = localStorage.getItem("quiz_user");
+
+    if (updatedUser) {
+      try {
+        const parsedUser = JSON.parse(updatedUser);
+        setNickname(parsedUser.nickname);
+
+      } catch (e) {
+        console.error("Erro ao atualizar nickname:", e);
+      }
+    }
+
     setShowForm(false);
   };
 
@@ -52,7 +76,12 @@ export default function Home() {
       <ToastContainer />
       <main className={style.main}>
 
-        <h1 className="text-3xl font- ld">Hamburgueria X - Bem-vindo!</h1>
+        <h1 className="text-3xl font- ld">Hamburgueria- Bem-vindo!</h1>
+
+        {nickname && (
+          <p className="mt-2 text-lg">Seja bem-vindo(a), <strong>{nickname}</strong>!</p>
+        )}
+
         <p className="mt-4">Explore nosso menu, participe do quiz e ganhe prêmios!</p>
 
         {

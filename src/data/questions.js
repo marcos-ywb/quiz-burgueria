@@ -11,6 +11,7 @@ const questions = [
         answers: ["Vincent van Gogh", "Leonardo da Vinci", "Michelangelo", "Pablo Picasso"],
         correct: 1,
     },
+    /*
     {
         id: 3,
         question: "Qual é o maior planeta do sistema solar?",
@@ -59,6 +60,7 @@ const questions = [
         answers: ["Português", "Inglês", "Espanhol", "Italiano"],
         correct: 2,
     },
+    */
 ];
 
 export default questions;

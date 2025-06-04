@@ -28,17 +28,10 @@ function Navbar() {
                         </Link>
                     </li>
                     <li>
-                        <Link href="/" className={style.link}>
+                        <Link href="/ranking" className={`${style.link} ${pathname === "/ranking" ? style.active : ""}`}>
                             Ranking
                         </Link>
                     </li>
-                    {/*
-                        <li>
-                            <Link href="/" className={style.link}>
-                                Account
-                            </Link>
-                        </li>
-                    */}
                 </ul>
             </div>
         </nav >

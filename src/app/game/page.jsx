@@ -1,12 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import confetti from "canvas-confetti";
 
 /* STYLES */
 import style from "./game.module.css";
 
 /* COMPONENTS */
 import Card from "@/components/Card";
+import ScoreCard from "@/components/ScoreCard";
+import RegisterForm from "@/components/RegisterForm";
 
 /* DATA */
 import questions from "@/data/questions";
@@ -17,6 +20,18 @@ function game() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [score, setScore] = useState(0);
 
+    const [quizEnded, setQuizEnded] = useState(false);
+    const [showRegisterForm, setShowRegisterForm] = useState(false);
+
+    useEffect(() => {
+        if (quizEnded) {
+            confetti({
+                particleCount: 150,
+                spread: 100,
+                origin: { y: 0.6 },
+            });
+        }
+    }, [quizEnded]);
 
     useEffect(() => {
         const user = localStorage.getItem("quiz_user");
@@ -42,13 +57,39 @@ function game() {
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex((prev) => prev + 1);
         } else {
-            alert(`Fim do quiz! \nPontuação: ${updatedScore}`);
-            setTimeout(() => {
-                window.location.reload();
-            }, 500);
+            setQuizEnded(true);
         }
     }
 
+
+    function onRegister() {
+        setShowRegisterForm(true);
+    }
+
+    function onContinue() {
+        setShowRegisterForm(false);
+        location.reload();
+    }
+
+    if (showRegisterForm) {
+        return (
+            <div className={style.main_container}>
+                <main className={`${style.main_content} ${style.modal_backdrop}`}>
+                    <RegisterForm />
+                </main>
+            </div>
+        );
+    }
+
+    if (quizEnded) {
+        return (
+            <div className={style.main_container}>
+                <main className={`${style.main_content} ${style.modal_backdrop}`}>
+                    <ScoreCard score={score} onRegister={onRegister} onContinue={onContinue} />
+                </main>
+            </div>
+        );
+    }
 
     const currentQuestion = questions[currentQuestionIndex];
 

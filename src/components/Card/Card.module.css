@@ -4,12 +4,31 @@
 }
 
 .card_container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 50;
     background-color: #1f1f1f;
     padding: 2rem;
-    border-radius: 12px;
-    color: #E0E0F0;
-    box-shadow: 0 4px 12px rgba(255, 255, 0, 0.1);
-    min-width: 500px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 1rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 0.3s ease-in-out;
+    color: #fff;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
 }
 
 .card_question {

@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "canvas-confetti": "^1.9.3",
+    "cleave.js": "^1.6.0",
+    "mysql2": "^3.14.1",
     "next": "15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

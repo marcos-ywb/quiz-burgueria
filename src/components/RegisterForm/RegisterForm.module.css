@@ -11,6 +11,7 @@
     border-radius: 1rem;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     animation: fadeInUp 0.3s ease-in-out;
+    color: #fff;
 }
 
 @keyframes fadeInUp {
